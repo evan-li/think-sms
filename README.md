@@ -1,57 +1,50 @@
-# Think-Blade
-Blade template engine with thinkphp 5. (component & slot support)
+# Think-Sms
+Sms Sender for ThinkPHP 5.1
 
 # Installation
 ```
-composer require evan-li/think-blade
+composer require evan-li/think-sms
 ```
+> 安装后执行 evan-li/think-sms/db/init.sql, 初始化数据库结构
 
 ### 配置
-template.php:
+`config/sms.php`:
 ```php
 return [
+    // 驱动类型, 支持 zsd(众视达) aliyun(阿里云,待支持) ucpaas(云之讯,待支持)
+    'driver' => 'zsd',
 
-    // 模板引擎类型 支持 php think 支持扩展
-    'type'         => 'Blade',
-    // 视图基础目录（集中式）
-    'view_base'   => '',
-    // 是否开启模板编译缓存,设为false则每次都会重新编译
-    'tpl_cache'          => true,
-    // 模板起始路径
-    'view_path'   => '',
-    'tpl_begin'   => '{{',
-    'tpl_end'   => '}}',
-    'tpl_raw_begin'   => '{!!',
-    'tpl_raw_end'   => '!!}',
-    'view_cache_path'   =>  Env::get('runtime_path') . 'temp' . DIRECTORY_SEPARATOR, // 模板缓存目录
-    // 模板文件后缀
-    'view_suffix' => 'blade.php',
-
+    // 众视达参数配置
+    'zsd' => [
+        // 行业短信参数配置
+        'biz' => [
+            'account' => 'account',
+            'password' => 'password',
+            'extno' => 'extno'
+        ],
+        // 营销短信参数配置
+        'marketing' => [
+            'account' => '',
+            'password' => '',
+            'extno' => ''
+        ],
+        // 灰度营销短信参数配置
+        'gray_marketing' => [
+            'account' => '',
+            'password' => '',
+            'extno' => ''
+        ],
+    ]
 ];
 ```
 
+# 短信状态报告
+使用众视达短信时, 可开启短信状态报告, 记录每条短信的接受状态. 
+状态报告命令: `evan\think\sms\command\ZsdReport`, 将此命令在`command.php`中注册, 并在crontab中定时执行: `php think sms:zsd-report {count?}`
+> 其中`count`为可选参数, 默认值 1000
+
 # Usage
-```html
-<header id="navbar">
-	<div class="row navbar-inner">
-		<div class="col-xs-6 brand-block">
-			<h4><a href="{{ url('/admin') }}"><img src="/assets/admin/images/logo.png"></a> · 管理后台
-			</h4>
-			<a href="javascript:;" class="cd_nav_trigger"><span></span></a>
-		</div>
-		<div class="col-xs-6 text-right user-block">
-			你好，{{ $manage_user->nickname }}({{ $manage_user->username }})
-			<span class="gap-line"></span>
-			<a href="{{ url('/manage/index/account') }}" class="item">修改资料</a>
-			<span class="gap-line"></span>
-			<a href="{{ url('/manage/start/logout') }}" class="confirm item" title="确认要退出吗？">退出</a>
-		</div>
-	</div>
-</header>
+```php
+Sender::sendVerifyCodeSms('手机号', '短信内容', '短信签名');
 ```
 
-# DOC
-
-https://laravel.com/docs/5.4/blade
-
-http://d.laravel-china.org/docs/5.4/blade (中文)
