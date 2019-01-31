@@ -1,4 +1,4 @@
-CREATE TABLE `zsd_sms_record` (
+CREATE TABLE IF NOT EXISTS `zsd_sms_record` (
   `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `account` VARCHAR(16) NOT NULL COMMENT '发送账号' COLLATE 'utf8mb4_unicode_ci',
   `extno` VARCHAR(16) NOT NULL COMMENT '接入号，即SP服务号（106XXXXXX）' COLLATE 'utf8mb4_unicode_ci',
@@ -18,7 +18,7 @@ CREATE TABLE `zsd_sms_record` (
   COLLATE='utf8mb4_unicode_ci'
   ENGINE=InnoDB ;
 
-CREATE TABLE `zsd_sms_item` (
+CREATE TABLE IF NOT EXISTS `zsd_sms_item` (
   `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `record_id` INT(11) NOT NULL COMMENT '短信发送记录ID',
   `mid` VARCHAR(32) NOT NULL DEFAULT '' COMMENT '消息ID（用于状态报告匹配）' COLLATE 'utf8mb4_unicode_ci',

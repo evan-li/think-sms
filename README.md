@@ -40,7 +40,7 @@ return [
 
 # 短信状态报告
 使用众视达短信时, 可开启短信状态报告, 记录每条短信的接受状态. 
-状态报告命令: `evan\think\sms\command\ZsdReport`, 将此命令在`command.php`中注册, 并在crontab中定时执行: `php think sms:zsd-report {count?}`
+状态报告命令: `php think sms:zsd-report`,  在crontab中定时执行: `php think sms:zsd-report {count?}` 即可
 > 其中`count`为可选参数, 默认值 1000
 
 # Usage
