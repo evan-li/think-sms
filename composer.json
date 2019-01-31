@@ -1,0 +1,19 @@
+{
+    "name": "evan-li/think-sms",
+    "description": "think blade view engine",
+    "license": "Apache2",
+    "authors": [
+    ],
+    "support": {
+        "issues": "https://github.com/evan-li/think-sms/issues"
+    },
+    "require": {
+        "php": ">=5.4.0",
+        "guzzlehttp/guzzle": "^6.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "evan\\think\\sms\\": "src"
+        }
+    }
+}
